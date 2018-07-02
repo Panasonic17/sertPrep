@@ -1,0 +1,21 @@
+1)pid  |size          |color|brand|rrp  |mainCategory|category|subCategory|stock|releaseDate		
+10000|XL ( 158-170 )|gruen|Nike |25.33|1             |7       |25         |1    |2017-10-01		
+
+ sert/items.csv read get all with парний pid sort by category (int ) dse get 2 4 5 save  to hdfs tab delimetr  
+
+2)
+read train json  group by color find avg pid 
+read sert/train.json  group by type and count for each type 
+
+3)read train csv  from hive   filtr size L or S and sort by PID save to hive new table and save to hdfs like csv 
+date      |pid  |size       |units		
+2017-10-01|14393|2 ( 37-39 )|1		
+
+4)read train csv read count of XL  sizes accumulators 
+
+5) read items csv form hive / hdfs  write udf to exstract year from realise date filtr only brefore 2015 year save pid size color to new hive table and hdfs 
+
+6)read from hive items and train csv join by  pid (different joins  all ) filtr by color get not green  , filtr by categogy + units <20 , sort by units group by stock get count  
+
+7) spark submit for jsr client / cluster mode 
+

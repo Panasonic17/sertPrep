@@ -12,3 +12,22 @@ create database sert;
 sc.textFile("/te/items.csv").map(r=>r.split("\\|")).map(arr=>(arr(0),arr(1),arr(2),arr(3),arr(4),arr(5),arr(6),arr(7),arr(8),arr(9))).toDF("pid","size","color","brand","rrp","mainCategory","category","subCategory","stock","releaseDate").saveAsTable("sert.items")
 sc.textFile("/te/train.csv").map(r=>r.split("\\|")).map(arr=>(arr(0),arr(1),arr(2),arr(3))).toDF("date","pid","size","units").saveAsTable("sert.train")
 
+
+tuples start from 1 but array from 0 
+in spark sort == orderby 
+
+
+
+1 sc.textFile("file:/sert/items.csv").filter(r=> !r.contains("pid")).map(d=>d.split("\\|")).map(arr=>(arr(0),arr(1),arr(2),arr(3),arr(4),arr(5),arr(6),arr(7),arr(8),arr(9))).filter(t=>t._1.toInt%2==0).sortBy(t=>t._7.toInt,true,1).map(t=>Array(t.2,t.4,t.5).mkString("sawa"))).saveAsTextFile("hdfs:/te/task1234")
+
+2 sqlContext.read.json("file:/sert/train.json").groupBy("color").count.coalesce(1).write.json("hdfs:/te/zxcvb")
+2 sqlContext.read.json("file:/sert/train.json").withColumn("pid",$"pid".cast("Int")).groupBy("color").avg("pid").show
+
+3 sqlContext.sql("Select * from sert.items where size ='L' or size='S'").sort("subCategory").saveAsTable("sad")
+
+
+4  sc.accumulator(0)
+   sc.textFile("file:/sert/train.json").foreach(r=>{if (r.contains("XL")) { res4+=1 }  })
+
+5 
+

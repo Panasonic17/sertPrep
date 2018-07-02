@@ -4,7 +4,7 @@
  sert/items.csv read get all with парний pid sort by category (int ) dse get 2 4 5 save  to hdfs tab delimetr  
 
 2)
-read train json  group by color find avg pid 
+read items json  group by color find avg pid 
 read sert/train.json  group by type and count for each type 
 
 3)read train csv  from hive   filtr size L or S and sort by PID save to hive new table and save to hdfs like csv 

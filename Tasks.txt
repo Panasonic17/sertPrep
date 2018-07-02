@@ -6,8 +6,8 @@
 6. зчитати з двох хайв таблиць і заджойнити, потім пофільтрувати там по чомусь
 7. спарк сабміт в клієнт моді
 
-
-
+{"phone_number":"PHONE","rec_date":"REC_DATE","channel":"CHANNEL","plan":"PLAN","amount":"AMOUNT"} -third table
+{"phone_number":"PHONE_NUM","plan":"PLAN","rec_date":"REC_DATE","status":"STAUS","balance":"BALANCE","imei":"IMEI","region":"REGION"} -customer details 
 create database sert;
 sc.textFile("/te/items.csv").map(r=>r.split("\\|")).map(arr=>(arr(0),arr(1),arr(2),arr(3),arr(4),arr(5),arr(6),arr(7),arr(8),arr(9))).toDF("pid","size","color","brand","rrp","mainCategory","category","subCategory","stock","releaseDate").saveAsTable("sert.items")
 sc.textFile("/te/train.csv").map(r=>r.split("\\|")).map(arr=>(arr(0),arr(1),arr(2),arr(3))).toDF("date","pid","size","units").saveAsTable("sert.train")
@@ -15,6 +15,12 @@ sc.textFile("/te/train.csv").map(r=>r.split("\\|")).map(arr=>(arr(0),arr(1),arr(
 
 tuples start from 1 but array from 0 
 in spark sort == orderby 
+sqlContext.sql("select * from xademo.recharge_details" ).withColumn("all",concat($"amount",lit(","),$"phone_number")).show(23,false)
+
+just regular 
+sqlContext.sql("select * from xademo.recharge_details" ).withColumn("all",concat($"amount",$"phone_number")).show(23,false)
+sqlContext.sql("select * from xademo.recharge_details" ).rdd.map(r=>Array(r.getString(0),r.getString(1),r.getString(2),r.getString(3),r.getString(4)).mkString(",")).saveAsTextFile("hdfs:/test/csv1")
+
 
 
 

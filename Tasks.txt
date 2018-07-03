@@ -35,5 +35,24 @@ sqlContext.sql("select * from xademo.recharge_details" ).rdd.map(r=>Array(r.getS
 4  sc.accumulator(0)
    sc.textFile("file:/sert/train.json").foreach(r=>{if (r.contains("XL")) { res4+=1 }  })
 
-5 
+5   val myupper: String => String = _.toUpperCase
+    val myudf=udf(myupper)
+    sqlContext.sql("select * from sert.train").withColumn("nre",myudf($"size")).show
+
+    val t1 = udf { name: String => name.split("\\|")(0) }
+    df.withColumn("change", t1($"json"))
+
+    val parceData : String =>Int = _.split("-")(0).toInt
+    val parceDataUDF=udf(parceData)
+    sqlContext.sql("select * from sert.train where date!='date'").withColumn("year",parceDataUDF($"date")).show
+
+    val test =udf {s:String => s+"SAWA CAN CREATE UDF "}
+    sqlContext.sql("select * from sert.train where date!='date'").withColumn("year",test($"date")).show
+
+6   t2.join(t1,"movieid").show 
+    t2.join(t1,$"imdbid"==="userid").show
+    t2.join(t1,$"imdbid"==="userid","joinType").show
+
+
+
 

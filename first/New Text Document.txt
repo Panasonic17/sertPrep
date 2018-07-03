@@ -13,7 +13,7 @@ date      |pid  |size       |units
 
 4)read train csv read count of XL  sizes accumulators 
 
-5) read items csv form hive / hdfs  write udf to exstract year from realise date filtr only brefore 2015 year save pid size color to new hive table and hdfs 
+5)read items csv form hive / hdfs  write udf to exstract year from realise date filtr only brefore 2015 year save pid size color to new hive table and hdfs 
 
 6)read from hive items and train csv join by  pid (different joins  all ) filtr by color get not green  , filtr by categogy + units <20 , sort by units group by stock get count  
 

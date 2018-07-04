@@ -8,6 +8,20 @@
 
 {"phone_number":"PHONE","rec_date":"REC_DATE","channel":"CHANNEL","plan":"PLAN","amount":"AMOUNT"} -third table
 {"phone_number":"PHONE_NUM","plan":"PLAN","rec_date":"REC_DATE","status":"STAUS","balance":"BALANCE","imei":"IMEI","region":"REGION"} -customer details 
+
+1  sc.textFile("hdfs:/task2/table2.csv").map(row=>row.split(",")).filter(arr=>arr(4).toInt>100).sortBy(arr=>arr(0).trim.toLong,false,1).map(arr=>Array(arr(0),arr(4),arr(3))).map(MKSTRING)saveAsTextFile("hdfs:/task2/t11")
+2  sqlContext.read.json("hdfs:/task2/thirdTeble - Copy.json1").withColumn("chanel",$"channel".cast("Int")).groupBy("amount").agg(avg("chanel").as("sawa")).saveAsTable("task22")
+3  sqlContext.sql("select * from sad").withColumn("rrp",$"rrp".cast("Double")).groupBy("brand").agg(max("category"),avg("stock")).show
+4  val acc=sc.accumulator(0)
+   sqlContext.sql("select * from sad").rdd.map(r=>r.getString(3)).foreach(b=>{if (b.equals("Nike")) acc+=1})
+5  val myUDF =udf {a:String=> a+"sawa"}
+   sqlContext.sql("select * from sad").withColumn("pid",myUDF($"pid")).show
+
+   sqlContext.udf.register("myudf",(s:String) => {s + "sawa"})
+   sqlContext.sql("select myudf(pid) from sad ").show
+
+6  sqlContext.sql("select * from sad ").join(sqlContext.sql("select * from sad")).show
+
 create database sert;
 sc.textFile("/te/items.csv").map(r=>r.split("\\|")).map(arr=>(arr(0),arr(1),arr(2),arr(3),arr(4),arr(5),arr(6),arr(7),arr(8),arr(9))).toDF("pid","size","color","brand","rrp","mainCategory","category","subCategory","stock","releaseDate").saveAsTable("sert.items")
 sc.textFile("/te/train.csv").map(r=>r.split("\\|")).map(arr=>(arr(0),arr(1),arr(2),arr(3))).toDF("date","pid","size","units").saveAsTable("sert.train")

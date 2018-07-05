@@ -9,6 +9,9 @@
 {"phone_number":"PHONE","rec_date":"REC_DATE","channel":"CHANNEL","plan":"PLAN","amount":"AMOUNT"} -third table
 {"phone_number":"PHONE_NUM","plan":"PLAN","rec_date":"REC_DATE","status":"STAUS","balance":"BALANCE","imei":"IMEI","region":"REGION"} -customer details 
 
+1 sc.textFile("hdfs:/test").filter(s=> !s.contains("code")).map(r=>r.split('\t')).filter(a=>a(3)=="64").sortBy(a=>a(0),true,1).saveAsTextFile("hdfs:/ta/blablabla")
+2  sqlContext.read.json("hdfs:/task2/customer_details - Copy.json1").groupBy("region").agg(avg("imei").as("gd")).coalesce(1).write.json("hdfs:/te/jsontext1")
+
 1  sc.textFile("hdfs:/task2/table2.csv").map(row=>row.split(",")).filter(arr=>arr(4).toInt>100).sortBy(arr=>arr(0).trim.toLong,false,1).map(arr=>Array(arr(0),arr(4),arr(3))).map(MKSTRING)saveAsTextFile("hdfs:/task2/t11")
 2  sqlContext.read.json("hdfs:/task2/thirdTeble - Copy.json1").withColumn("chanel",$"channel".cast("Int")).groupBy("amount").agg(avg("chanel").as("sawa")).saveAsTable("task22")
 3  sqlContext.sql("select * from sad").withColumn("rrp",$"rrp".cast("Double")).groupBy("brand").agg(max("category"),avg("stock")).show
@@ -34,9 +37,6 @@ sqlContext.sql("select * from xademo.recharge_details" ).withColumn("all",concat
 just regular 
 sqlContext.sql("select * from xademo.recharge_details" ).withColumn("all",concat($"amount",$"phone_number")).show(23,false)
 sqlContext.sql("select * from xademo.recharge_details" ).rdd.map(r=>Array(r.getString(0),r.getString(1),r.getString(2),r.getString(3),r.getString(4)).mkString(",")).saveAsTextFile("hdfs:/test/csv1")
-
-
-
 
 1 sc.textFile("file:/sert/items.csv").filter(r=> !r.contains("pid")).map(d=>d.split("\\|")).map(arr=>(arr(0),arr(1),arr(2),arr(3),arr(4),arr(5),arr(6),arr(7),arr(8),arr(9))).filter(t=>t._1.toInt%2==0).sortBy(t=>t._7.toInt,true,1).map(t=>Array(t.2,t.4,t.5).mkString("sawa"))).saveAsTextFile("hdfs:/te/task1234")
 
